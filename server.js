@@ -29,6 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //app.use(morgan("dev"));
+// Routes setup
+app.use('/api/status', (req, res) =>  res.send("server is live"));
 app.use("/api", routes);
 
 app.use(routeNotFound);
