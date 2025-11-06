@@ -33,5 +33,8 @@ app.use("/api", routes);
 
 app.use(routeNotFound);
 app.use(errorHandler);
-
+if(process.env.NODE_ENV !== 'production'){
 app.listen(port, () => console.log(`Server listening on ${port}`));
+}
+
+export default app;
