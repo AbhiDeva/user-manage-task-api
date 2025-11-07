@@ -8,8 +8,8 @@ import { isAdminRoute, protectRoute } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/create", protectRoute, isAdminRoute, createTask);
-router.get("/", protectRoute, getTasks);
-router.get("/:id", protectRoute, getTask);
+router.post("/create", protectRoute, isAdminRoute, createProject);
+router.get("/", protectRoute, updateProject);
+router.get("/:id", protectRoute, getProject);
 
 export default router;
