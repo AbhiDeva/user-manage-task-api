@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema } from "mongoose";
 
 const nodeSchema = new Schema({
     name: {
@@ -19,11 +19,9 @@ const nodeSchema = new Schema({
         default: ""
     },
     children: {
-        type: [this],
+        type: Object,
         default: undefined
     }
 }, {_id: false});
 
-const Node = mongoose.model("Node", nodeSchema);
-
-export default Node;
+export default nodeSchema;

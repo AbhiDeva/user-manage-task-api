@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import Node from "./models/nodeModel.js"
+import nodeSchema from "../nodeModel.js";
 
 const projectSchema = new Schema({
     name: {
@@ -7,7 +7,7 @@ const projectSchema = new Schema({
         default: 'Untitled Project'
     },
     structure:{
-        type: Node,
+        type: nodeSchema,
         required : true
     },
     createdAt: {
