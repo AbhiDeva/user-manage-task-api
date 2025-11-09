@@ -27,6 +27,15 @@ export const submitCode = async (req, res) => {
 
     const startTime = Date.now();
 
+    const normalize = (str) => {
+  return str
+    .trim()
+    .replace(/\s+/g, "")
+    .replace(/\s*,\s*/g, ",")
+    .replace(/\[\s*/g, "[")
+    .replace(/\s*\]/g, "]");
+};
+
     for (const testCase of problem.testCases) {
       const result = await executeCode(language, code, testCase.input);
       
@@ -36,9 +45,15 @@ export const submitCode = async (req, res) => {
         break;
       }
 
-      const normalizedOutput = result.output.trim();
-      const normalizedExpected = testCase.expectedOutput.trim();
+     // const normalizedOutput = result.output.trim();
+     // const normalizedExpected = testCase.expectedOutput.trim();
 
+       const normalizedOutput = normalize(result.output);
+  const normalizedExpected = normalize(testCase.expectedOutput);
+
+  console.log("Output:", normalizedOutput);
+  console.log("Expected:", normalizedExpected);
+  
       console.log(normalizedOutput);
       console.log(normalizedExpected);
 
