@@ -39,6 +39,9 @@ export const submitCode = async (req, res) => {
       const normalizedOutput = result.output.trim();
       const normalizedExpected = testCase.expectedOutput.trim();
 
+      console.log(normalizedOutput);
+      console.log(normalizedExpected);
+
       if (normalizedOutput === normalizedExpected) {
         testCasesPassed++;
       } else {
