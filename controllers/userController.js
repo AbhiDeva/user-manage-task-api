@@ -261,6 +261,48 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
   res.status(200).json({ status: true, message: "User deleted successfully" });
 });
 
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+      .populate('solvedProblems.problemId', 'title difficulty')
+      .populate('submissions');
+
+    res.status(200).json({user:user});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+// @desc    Get user stats
+// @route   GET /api/users/stats
+// @access  Private
+const getUserStats = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+      .populate('solvedProblems.problemId', 'difficulty');
+
+    const stats = {
+      totalSolved: user.solvedProblems.length,
+      easy: user.solvedProblems.filter(
+        p => p.problemId.difficulty === 'Easy'
+      ).length,
+      medium: user.solvedProblems.filter(
+        p => p.problemId.difficulty === 'Medium'
+      ).length,
+      hard: user.solvedProblems.filter(
+        p => p.problemId.difficulty === 'Hard'
+      ).length,
+    };
+
+    res.status(200).json(stats);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   activateUserProfile,
   changeUserPassword,
@@ -273,4 +315,6 @@ export {
   markNotificationRead,
   registerUser,
   updateUserProfile,
+  getUserProfile,
+  getUserStats
 };

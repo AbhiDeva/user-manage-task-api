@@ -11,6 +11,24 @@ const userSchema = new Schema(
     isAdmin: { type: Boolean, default: false },
     tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
     isActive: { type: Boolean, default: true },
+    solvedProblems: [
+      {
+        problemId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Problem'
+        },
+        solvedAt: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ],
+    submissions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Submission'
+      }
+    ]
   },
   { timestamps: true }
 );
