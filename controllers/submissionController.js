@@ -10,7 +10,7 @@ import { executeCode } from '../utils/codeExecutor.js';
 export const submitCode = async (req, res) => {
   try {
     const { problemId, language, code } = req.body;
-    const userId = req.user._id;
+    const userId = req.user._id || req.body.userId || req.body.user._id ;
 
     // Get problem with test cases
     const problem = await Problem.findById(problemId);
